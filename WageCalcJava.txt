@@ -1,0 +1,62 @@
+//For educational purposes only.  
+package com.patsapps.wagecalc2;
+
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.EditText;
+
+public class MainActivity extends Activity {
+	TextView grossWage;
+	EditText totalHours;
+	EditText hourlyRate;
+	
+	 
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+	
+	
+	
+	public void buttonclick(View view) {
+		TextView grossWage = (TextView)findViewById(R.id.calculatedGrossWageTextView); 
+		EditText totalHours= (EditText)findViewById(R.id.hoursWorkedEditText);  //Creates the total hours EditText
+		EditText hourlyRate= (EditText)findViewById(R.id.hourlyRateEditText);  //Creates the hourly rate EditText
+		double hours = Double.parseDouble(totalHours.getText().toString());  //Receives input from totalHours and converts it to a double
+		double wage = Double.parseDouble(hourlyRate.getText().toString());  //Receives input from hourlyRate and converts it to a double
+		double total;  //Holds the calculation
+		if (hours <= 40)
+			total = hours * wage;  //no overtime
+		else
+			total = (hours * wage) + ((hours - 40) * 1.5);  //calculate overtime
+		
+		String gross = Double.toString(total);  //convert total double variable into string
+		grossWage.setText(gross);  //Display gross variable in grossWage TextView
+	}
+	
+	public void reset(View view)  {
+		TextView grossWage = (TextView)findViewById(R.id.calculatedGrossWageTextView);
+		EditText totalHours= (EditText)findViewById(R.id.hoursWorkedEditText);  //Creates the total hours EditText
+		EditText hourlyRate= (EditText)findViewById(R.id.hourlyRateEditText);  //Creates the hourly rate EditText
+		
+		grossWage.setText("");
+		totalHours.setText("");
+		hourlyRate.setText("");
+	}
+
+
+}
